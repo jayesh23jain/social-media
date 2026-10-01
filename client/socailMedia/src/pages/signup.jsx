@@ -15,7 +15,7 @@ function Signup() {
 
     const handleSubmit = async (e) => {
         e.preventDefault()
-        setLoader(true)
+         setLoader(true)
         setErr('')
 
         try {
