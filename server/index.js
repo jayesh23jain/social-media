@@ -1,8 +1,11 @@
 import express from 'express'
 import mongoose from 'mongoose'
 import dotenv from 'dotenv'
+import userRoutes from './routes/user.route.js'
 
 const app = express()
+
+app.use(express.json())
 
 // const port = 8085
 
@@ -13,6 +16,8 @@ mongoose.connect(process.env.url).then(()=> {
 }).catch((err) => {
     console.log(err)
 })
+
+app.use('/users' , userRoutes)
 
 app.get('/' , (req , res) => {
     res.send('Server hello')
