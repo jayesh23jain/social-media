@@ -2,6 +2,10 @@ import User from '../models/user.model.js'
 import bcrypt from 'bcrypt'
 import genToken from '../utils/generateToken.js'
 
+const cookieOptions = {
+    httpOnly : true
+}
+
 export const registerUser = async (req, res) => {
     try {
         const { name, username, email, password } = req.body
@@ -37,6 +41,8 @@ export const registerUser = async (req, res) => {
 
         const token = genToken(newUser._id)
 
+        res.cookie('token' , token , cookieOptions)
+
         res.status(201).json({ message: 'New User Registered', user: newUser })
 
     } catch (error) {
@@ -68,4 +74,9 @@ export const loginUser = async (req, res) => {
     } catch (error) {
         res.status(500).json({ message: 'Server crashed', error: error.message })
     }
+}
+
+export const getMe = (req , res) => {
+    const authenticatedUser = req.user
+    res.status(200).json({authenticatedUser})
 }
