@@ -80,3 +80,11 @@ export const getMe = (req , res) => {
     const authenticatedUser = req.user
     res.status(200).json({authenticatedUser})
 }
+
+export const logout = (req , res) => {
+    res.clearCookie('token' , {
+        httpOnly : true
+    })
+
+    res.status(200).json({message : 'User logged Out'})
+}
